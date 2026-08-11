@@ -1,0 +1,221 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Dark theme (default) — RGB triples, no commas, so Tailwind's
+     rgb(var(--x) / <alpha-value>) pattern can still apply opacity
+     modifiers like bg-navy-light/[0.97] used throughout the site. */
+  --color-navy: 10 38 71;
+  --color-navy-light: 18 60 105;
+  --color-navy-deep: 6 26 51;
+  --color-ink: 255 255 255;
+  --color-ink-muted: 169 193 217;
+  --color-ink-faint: 110 140 173;
+  color-scheme: dark;
+}
+
+.light {
+  --color-navy: 244 246 250;
+  --color-navy-light: 231 236 245;
+  --color-navy-deep: 220 227 240;
+  --color-ink: 10 38 71;
+  --color-ink-muted: 74 90 114;
+  --color-ink-faint: 133 147 168;
+  color-scheme: light;
+}
+
+@layer base {
+  body {
+    @apply bg-navy text-ink font-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading;
+  }
+
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-accent;
+  }
+}
+
+@layer components {
+  /* Signature element: a thin crosshair/target ring, used as a section
+     marker and bullet point throughout the site — a nod to surgical
+     precision rather than a decorative flourish. */
+  .crosshair-mark {
+    @apply relative inline-flex h-3 w-3 shrink-0 items-center justify-center;
+  }
+  .crosshair-mark::before {
+    content: "";
+    @apply absolute inset-0 rounded-full border border-accent;
+  }
+  .crosshair-mark::after {
+    content: "";
+    @apply h-1 w-1 rounded-full bg-accent;
+  }
+
+  .section-eyebrow {
+    @apply mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-accent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(var(--marquee-shift, -50%));
+  }
+}
+
+.animate-marquee {
+  animation: marquee 22s linear infinite;
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* `both` fill-mode is what matters here: the element shows the "from"
+   state the instant this class applies (part of the normal CSS paint,
+   not a separate JS step), and holds the "to" state once finished. No
+   JavaScript involved at any point, so there's no failure mode where
+   content is left stuck invisible. */
+.hero-animate {
+  animation: hero-fade-up 1.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Pure CSS 3D flip card — no JS state at all, so hover/leave always
+   behaves correctly with no failure mode. */
+.flip-card {
+  perspective: 1200px;
+}
+.flip-card-inner {
+  position: relative;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-style: preserve-3d;
+}
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+}
+
+@keyframes sparkle-twinkle {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.15);
+  }
+}
+
+/* Loader: fully visible until 85% of its duration, then fades and is
+   removed from hit-testing. This is pure CSS with animation-fill-mode
+   forwards — it WILL disappear after this fixed duration with zero
+   JavaScript involved, so there is no failure mode where it gets stuck
+   covering the site. */
+@keyframes loader-exit {
+  0%, 82% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.loader-overlay {
+  animation: loader-exit 2.6s ease-in-out forwards;
+}
+
+/* Radar-style ping rings: three copies, staggered via animationDelay in
+   the component, expand and fade so the overlap reads as one continuous
+   pulse rather than three distinct rings. */
+@keyframes loader-ping {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+.loader-ping-ring {
+  animation: loader-ping 2.4s ease-out infinite;
+}
+
+/* Scan beam: a soft horizontal band sweeping vertically through the
+   icon's circular clipped window, evoking an ultrasound/diagnostic
+   scan pass. */
+@keyframes loader-scan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(250%);
+    opacity: 0;
+  }
+}
+.loader-scan-beam {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 107, 53, 0) 0%,
+    rgba(255, 107, 53, 0.55) 50%,
+    rgba(255, 107, 53, 0) 100%
+  );
+  animation: loader-scan 2s ease-in-out infinite;
+}
+
+@keyframes loader-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+.loader-icon {
+  animation: loader-pulse 1.3s ease-in-out infinite;
+}
+
+@keyframes loader-progress {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+.loader-progress-bar {
+  animation: loader-progress 2.2s ease-out forwards;
+}

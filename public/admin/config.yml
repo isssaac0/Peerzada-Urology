@@ -1,0 +1,230 @@
+backend:
+  name: github
+  # TODO: replace with the real GitHub repo, in "owner/repo-name" form.
+  repo: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME
+  branch: main
+  # TODO: replace with your site's actual deployed URL once it's on Vercel
+  # (e.g. https://dr-peerzada-urology.vercel.app). The OAuth routes live
+  # inside this same Next.js app at /api/auth and /api/callback — there is
+  # no separate proxy to deploy. See README.md for full setup steps.
+  base_url: https://YOUR-SITE.vercel.app
+  auth_endpoint: api/auth
+
+# Lets the CMS be tested on your own computer, before deploying anywhere.
+# When this is true AND you're viewing /admin on localhost, Decap skips
+# GitHub login entirely and talks to a small local server instead (see
+# README.md), writing straight into this project's /content and
+# /public/uploads folders. It has no effect once the site is live on a
+# real domain — the real GitHub-login flow above still applies there.
+local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  # ---------- 1. Doctor Profile ----------
+  - name: "doctor_profile"
+    label: "Doctor Profile"
+    files:
+      - file: "content/doctor-profile.md"
+        name: "doctor_profile"
+        label: "Doctor Profile"
+        fields:
+          - { label: "Full Name", name: "name", widget: "string" }
+          - { label: "Credentials", name: "credentials", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Hospital", name: "hospital", widget: "string", required: false }
+          - { label: "Hospital Logo", name: "hospitalLogo", widget: "image", required: false }
+          - { label: "Years of Experience (e.g. \"15+\")", name: "yearsExperience", widget: "string", required: false, hint: "Leave blank until a real figure is confirmed — do not guess." }
+          - { label: "Surgeries Performed (e.g. \"4000+\")", name: "surgeriesCount", widget: "string", required: false, hint: "Leave blank until a real figure is confirmed — do not guess." }
+          - { label: "Patients Treated (e.g. \"1000+\")", name: "patientsTreated", widget: "string", required: false, hint: "Leave blank until a real figure is confirmed — do not guess." }
+          - { label: "Tagline", name: "tagline", widget: "text" }
+          - { label: "Hero Photo", name: "heroImage", widget: "image", required: false }
+          - { label: "Bio", name: "body", widget: "markdown" }
+
+  # ---------- 2. Qualifications ----------
+  - name: "qualifications"
+    label: "Qualifications"
+    folder: "content/qualifications"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Degree", name: "degree", widget: "string" }
+      - { label: "Institution", name: "institution", widget: "string", required: false }
+      - { label: "Institution Logo", name: "logo", widget: "image", required: false, hint: "Optional — shown in the animated 'Trained At' strip instead of the institution name when provided." }
+      - { label: "Display Order", name: "order", widget: "number", hint: "Lower numbers show first" }
+
+  # ---------- 3. Awards & Achievements ----------
+  - name: "awards"
+    label: "Awards & Achievements"
+    folder: "content/awards"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - { label: "Certificate Photo", name: "certificateImage", widget: "image", required: false, hint: "A scan or photo of the actual certificate/award." }
+      - { label: "Display Order", name: "order", widget: "number", hint: "Lower numbers show first" }
+
+  # ---------- 4. Services ----------
+  - name: "services"
+    label: "Services"
+    folder: "content/services"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Short Description (for the card)", name: "shortDescription", widget: "text" }
+      - label: "Icon"
+        name: "icon"
+        widget: "select"
+        options:
+          - { label: "Endourology", value: "endourology" }
+          - { label: "Uro-Oncology", value: "uro-oncology" }
+          - { label: "Andrology", value: "andrology" }
+          - { label: "Reconstructive Urology", value: "reconstructive-urology" }
+          - { label: "Renal Transplant", value: "renal-transplant" }
+          - { label: "Laparoscopy + Robotic Surgery", value: "laparoscopy-robotic" }
+      - { label: "Display Order", name: "order", widget: "number" }
+      - { label: "Hero Image", name: "heroImage", widget: "image", required: false }
+      - label: "Supporting Images"
+        name: "images"
+        widget: "list"
+        required: false
+        field: { label: "Image", name: "image", widget: "image" }
+        hint: "Extra photos shown partway down the page."
+      - { label: "Doctor's Explainer Video URL", name: "explainerVideoUrl", widget: "string", required: false, hint: "YouTube, Vimeo, or other external link — the doctor explaining this procedure." }
+      - { label: "Problem & Diagnosis — Heading", name: "problemDiagnosisHeading", widget: "string" }
+      - { label: "Problem & Diagnosis — Body", name: "problemDiagnosisBody", widget: "text" }
+      - { label: "Procedure & Precision — Heading", name: "procedurePrecisionHeading", widget: "string" }
+      - { label: "Procedure & Precision — Body", name: "procedurePrecisionBody", widget: "text" }
+      - { label: "Life & Recovery — Heading", name: "lifeRecoveryHeading", widget: "string" }
+      - { label: "Life & Recovery — Body", name: "lifeRecoveryBody", widget: "text" }
+      - label: "Trifecta Outcomes"
+        name: "trifectaOutcomes"
+        widget: "list"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Promise", name: "promise", widget: "text" }
+          - { label: "Technique", name: "technique", widget: "text" }
+          - label: "Execution Steps"
+            name: "execution"
+            widget: "list"
+            field: { label: "Step", name: "step", widget: "string" }
+          - { label: "The Win", name: "win", widget: "text" }
+      - label: "FAQs"
+        name: "faqs"
+        widget: "list"
+        fields:
+          - { label: "Question", name: "question", widget: "string" }
+          - { label: "Answer", name: "answer", widget: "text" }
+      - { label: "Full Summary (long-form)", name: "body", widget: "markdown" }
+
+  # ---------- 5. Patient Journey ----------
+  - name: "patient_journey"
+    label: "Patient Journey"
+    folder: "content/patient-journey"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Phase Label", name: "phaseLabel", widget: "string", hint: "e.g. Phase 1" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Display Order", name: "order", widget: "number" }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - label: "Key Points"
+        name: "keyPoints"
+        widget: "list"
+        required: false
+        field: { label: "Point", name: "point", widget: "string" }
+        hint: "Shown as an animated numbered step list on the phase page."
+      - label: "FAQs"
+        name: "faqs"
+        widget: "list"
+        fields:
+          - { label: "Question", name: "question", widget: "string" }
+          - { label: "Answer", name: "answer", widget: "text" }
+      - label: "Recovery Milestones"
+        name: "recoveryMilestones"
+        widget: "list"
+        required: false
+        hint: "Only used on the Recovery & Home phase — powers the interactive Recovery Meter."
+        fields:
+          - { label: "Day", name: "day", widget: "string" }
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "Detail", name: "detail", widget: "text" }
+      - label: "Urine Color Guide"
+        name: "urineColorGuide"
+        widget: "list"
+        required: false
+        hint: "Only used on the Recovery & Home phase — powers the interactive color matcher."
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "Color", name: "hex", widget: "color" }
+          - { label: "Guidance", name: "guidance", widget: "text" }
+          - label: "Severity"
+            name: "severity"
+            widget: "select"
+            options: ["normal", "caution", "emergency"]
+      - label: "Symptom Checklist"
+        name: "symptomChecklist"
+        widget: "list"
+        required: false
+        hint: "Only used on the Recovery & Home phase — powers the interactive symptom checker."
+        fields:
+          - { label: "Symptom", name: "symptom", widget: "string" }
+          - label: "Verdict"
+            name: "verdict"
+            widget: "select"
+            options: ["normal", "caution", "emergency"]
+          - { label: "Guidance", name: "guidance", widget: "text" }
+      - { label: "Body Content", name: "body", widget: "markdown" }
+
+  # ---------- 6. Clinic Timings (left empty — doctor fills these in) ----------
+  - name: "clinic_timings"
+    label: "Clinic Timings"
+    folder: "content/clinic-timings"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Hospital / Clinic Name", name: "hospitalName", widget: "string" }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Days", name: "days", widget: "string", hint: "e.g. Monday – Saturday" }
+      - { label: "Hours", name: "hours", widget: "string", hint: "e.g. 10:00 AM – 4:00 PM" }
+      - { label: "Map Link", name: "mapUrl", widget: "string", required: false }
+      - { label: "Note", name: "proTip", widget: "text", required: false }
+
+  # ---------- 7. Gallery (left empty — doctor uploads photos) ----------
+  - name: "gallery"
+    label: "Gallery"
+    folder: "content/gallery"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Caption", name: "caption", widget: "string", required: false }
+
+  # ---------- 8. Videos (left empty — doctor adds videos) ----------
+  - name: "videos"
+    label: "Videos"
+    folder: "content/videos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Video URL", name: "url", widget: "string", hint: "YouTube, Vimeo, or other external link" }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+
+  # ---------- 9. Research Papers ----------
+  - name: "research"
+    label: "Research Papers"
+    folder: "content/research"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Journal / Publication", name: "journal", widget: "string", required: false }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Abstract", name: "abstract", widget: "text" }
+      - { label: "PDF File", name: "pdfFile", widget: "file", required: false, hint: "Upload the paper as a PDF." }
+      - { label: "External Link", name: "externalLink", widget: "string", required: false, hint: "Alternative to a PDF upload — a link to the paper on a journal's site." }
