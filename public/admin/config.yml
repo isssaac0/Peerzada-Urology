@@ -1,13 +1,13 @@
 backend:
   name: github
   # TODO: replace with the real GitHub repo, in "owner/repo-name" form.
-  repo: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME
+  repo: isssaac0/Peerzada-Urology
   branch: main
   # TODO: replace with your site's actual deployed URL once it's on Vercel
   # (e.g. https://dr-peerzada-urology.vercel.app). The OAuth routes live
   # inside this same Next.js app at /api/auth and /api/callback — there is
   # no separate proxy to deploy. See README.md for full setup steps.
-  base_url: https://YOUR-SITE.vercel.app
+  base_url: https://peerzada-urology.vercel.app
   auth_endpoint: api/auth
 
 # Lets the CMS be tested on your own computer, before deploying anywhere.
