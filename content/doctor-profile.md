@@ -8,7 +8,7 @@ yearsExperience: 15+
 patientsTreated: 1000+
 tagline: Advanced, minimally invasive urology care built on precision training
   and a steady, patient-first approach.
-heroImage: /uploads/whatsapp-image-2026-07-11-at-14.18.04.jpeg
+heroImage: /uploads/chatgpt-image-jul-11-2026-02_34_20-pm.png
 ---
 
 Dr. Peerzada Faisal Masood is a fellowship-trained urologist specializing in endourology, uro-oncology, andrology, reconstructive urology, and renal transplant surgery, with particular expertise in minimally invasive laparoscopic and robotic techniques.
