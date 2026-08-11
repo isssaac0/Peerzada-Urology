@@ -1,13 +1,14 @@
 ---
-name: "Dr. Peerzada Faisal Masood"
-credentials: "MBBS, MS (General Surgery & Renal Transplant), M.Ch (Urology)"
-title: "Urologist, Renal Transplant & Robotic Surgery Specialist"
-hospital: "Asian Vivekanand Super Speciality Hospital, Moradabad"
-hospitalLogo: "/uploads/asian-vivekanand-logo.png"
-tagline: "Advanced, minimally invasive urology care built on precision training and a steady, patient-first approach."
-heroImage: "https://picsum.photos/seed/dr-peerzada-portrait/800/1000"
-yearsExperience: "15+"
-patientsTreated: "1000+"
+name: Dr. Peerzada Faisal Masood
+credentials: MBBS, MS (General Surgery & Renal Transplant), M.Ch (Urology)
+title: Urologist, Renal Transplant & Robotic Surgery Specialist
+hospital: Asian Vivekanand Super Speciality Hospital, Moradabad
+hospitalLogo: /uploads/asian-vivekanand-logo.png
+yearsExperience: 15+
+patientsTreated: 1000+
+tagline: Advanced, minimally invasive urology care built on precision training
+  and a steady, patient-first approach.
+heroImage: /uploads/pirzada-faisal.webp
 ---
 
 Dr. Peerzada Faisal Masood is a fellowship-trained urologist specializing in endourology, uro-oncology, andrology, reconstructive urology, and renal transplant surgery, with particular expertise in minimally invasive laparoscopic and robotic techniques.
