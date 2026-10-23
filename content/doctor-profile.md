@@ -3,7 +3,7 @@ name: Dr.Pirzada Faisal Masood
 credentials: MBBS, MS (General Surgery), M.Ch (Urology and Renal Transplant),
   Minimal Invasive Urology (Laparoscopy and Robotic Surgery)
 title: Urologist, Renal Transplant & Robotic Surgery Specialist
-hospital: ""
+hospital: Vardhman Mahavir Medical College and Safdarjung Hospital, New Delhi
 hospitalLogo: /uploads/vmmc-safdarjung-logo.webp
 yearsExperience: 15+
 patientsTreated: 1000+
