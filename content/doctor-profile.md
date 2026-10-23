@@ -1,6 +1,7 @@
 ---
-name: Dr. Peerzada Faisal Masood
-credentials: MBBS, MS (General Surgery & Renal Transplant), M.Ch (Urology)
+name: Dr. Pirzada Faisal Masood
+credentials: MBBS, MS (General Surgery), M.Ch (Urology and Renal Transplant),
+  Minimal Invasive Urology (Laparoscopy and Robotic Surgery)
 title: Urologist, Renal Transplant & Robotic Surgery Specialist
 hospital: Asian Vivekanand Super Speciality Hospital, Moradabad
 hospitalLogo: /uploads/asian-vivekanand-logo.png
