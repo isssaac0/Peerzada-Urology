@@ -1,6 +1,6 @@
 ---
-degree: "MS — General Surgery & Renal Transplant"
-institution: "Vardhman Mahavir Medical College & Safdarjung Hospital, New Delhi"
-logo: "/uploads/vmmc-safdarjung-logo.webp"
+degree: MS — General Surgery
+institution: ""
+logo: /uploads/skims-logo.webp
 order: 2
 ---
