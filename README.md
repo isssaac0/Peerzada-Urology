@@ -160,3 +160,37 @@ Urine Color Matcher, and Symptom Checker).
 
 **Left empty, for the doctor to add via `/admin`:** Clinic Timings,
 Gallery photos, Videos, and Blog Posts.
+
+
+## Surgical Procedures (CMS workflow)
+
+In `/admin` → **Surgical Procedures** → *New Surgical Procedure*:
+
+1. Enter the **Procedure Title**, pick a **Category**, write the **Overall Description** (one for the whole procedure), and optionally a **Procedure Date**.
+2. **Surgical Photographs** is a custom widget (`public/admin/surgical-steps-widget.js`):
+   - **Add photographs** (or drag files onto the dashed box) — several at once. Each becomes a stage with an instant thumbnail.
+   - Type a **title** for every stage.
+   - **Reorder** by dragging the ⠿ *Drag* handle, or with the ◀ ▶ buttons (works on touch). The numbers on the cards are the order on the website. The list order is the only ordering — there is no separate order field.
+   - **Adjust** (click a thumbnail): Instagram-style editor — drag to reposition, scroll / slider / pinch to zoom, choose a shape (Original, 1:1, 4:5, 3:4, 4:3, 3:2, 16:9), **Reset**. It is shown inside the same frame visitors see. *Original* never cuts anything off.
+   - **Replace** swaps the photograph (keeps the title); **Delete** removes the stage.
+   - **Preview sequence** shows the whole procedure exactly as visitors will see it.
+3. Tick **Patient consent confirmed** only when written consent is on file. Untick **Draft** to publish. A procedure is shown only when *Draft is off* **and** *consent is ticked*.
+4. **Show graphic-content warning** (on by default) puts a click-through notice in front of the photographs.
+
+How adjustments are stored: the uploaded **original is never modified**. Each stage in `content/procedures/*.md` keeps `image`, `title` plus optional `width`, `height`, `ratio`, `zoom`, `focusX`, `focusY`. The website turns these into CSS at render time (`lib/framing.ts`; the CMS widget uses identical maths — keep the two in sync). Entries created before this widget (image + title only) keep working and show each photograph whole.
+
+Notes:
+- Photographs are committed to the repository (`public/uploads/procedures`). Removing or replacing a photograph in a procedure does **not** delete the uploaded file; delete it from the CMS *Media* tab (and note it stays in git history). Original files are publicly reachable by URL even for drafts, so upload only consented, de-identified photographs, ideally with EXIF/GPS metadata removed. The website serves re-encoded copies through the Next.js image optimiser, which drops EXIF.
+- The widget relies on Decap's `window.h` / `window.createClass` and `onPersistMedia`, verified with Decap 3.17 (the admin page loads `decap-cms@^3.3.3` from unpkg).
+- Procedures appear on the homepage immediately after *Training & Credentials*, on `/procedures`, and each has its own page at `/procedures/<slug>`.
+- Research papers have **Authors** (list), **DOI**, **Publication URL** and **Draft** fields. Action buttons only appear for resources that exist.
+
+## How images fit their placeholders
+
+Placeholder sizes are fixed by the layout; uploaded images never change them, and every image fills its placeholder with no empty bars (`components/ui/FitImage.tsx`).
+
+**You choose what stays visible.** Every image field shown in a placeholder (gallery, certificates, service images, patient journey, hero photo) uses the `framed_image` CMS widget: after uploading, drag the picture and zoom (scroll, slider or pinch) inside a frame of the exact shape it is shown in. Where one image appears in several shapes (e.g. gallery 4:3 and carousel 3:4), small "Also shown as…" previews update live, and the same crop is used in all of them. The original file is never modified.
+
+The crop is stored inside the image value: `/uploads/x.jpg#f=2,43,42.6` (zoom, focus X %, focus Y %). Existing entries without a crop keep working and are simply centred until adjusted. The website applies it with CSS (`lib/imageFraming.ts`).
+
+Procedure covers are a collage of all stage photographs; the procedure page shows each stage whole in a fixed 4:3 frame, with a full-screen view.
