@@ -4,7 +4,7 @@ title: Safety & Preparation
 order: 2
 summary: What happens in the days and hours before surgery — pre-operative
   checks, fasting instructions, and getting ready safely.
-image: /uploads/images-1-.jpg#f=1,50,79.8
+image: /uploads/images-1-.jpg#f=1,50,77
 keyPoints:
   - Complete final pre-operative health checks and any outstanding tests
   - Meet with the anesthesia team to discuss your specific anesthesia plan
