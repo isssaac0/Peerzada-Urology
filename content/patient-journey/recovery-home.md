@@ -4,7 +4,7 @@ title: Recovery & Home
 order: 4
 summary: What recovery looks like in the days and weeks after surgery, with
   interactive tools to help track progress and know what's worth flagging.
-image: /uploads/images-3-.jpg#f=1,50,0
+image: /uploads/images-3-.jpg#f=1.05,50,10.6
 keyPoints:
   - Follow wound and catheter care instructions exactly as given at discharge
   - Stay ahead of hydration, especially in the first couple of weeks
