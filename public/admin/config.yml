@@ -1,0 +1,296 @@
+backend:
+  name: github
+  # TODO: replace with the real GitHub repo, in "owner/repo-name" form.
+  repo: isssaac0/Peerzada-Urology
+  branch: main
+  # TODO: replace with your site's actual deployed URL once it's on Vercel
+  # (e.g. https://dr-peerzada-urology.vercel.app). The OAuth routes live
+  # inside this same Next.js app at /api/auth and /api/callback — there is
+  # no separate proxy to deploy. See README.md for full setup steps.
+  base_url: https://peerzada-urology.vercel.app
+  auth_endpoint: api/auth
+
+# Lets the CMS be tested on your own computer, before deploying anywhere.
+# When this is true AND you're viewing /admin on localhost, Decap skips
+# GitHub login entirely and talks to a small local server instead (see
+# README.md), writing straight into this project's /content and
+# /public/uploads folders. It has no effect once the site is live on a
+# real domain — the real GitHub-login flow above still applies there.
+local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  # ---------- 1. Doctor Profile ----------
+  - name: "doctor_profile"
+    label: "Doctor Profile"
+    files:
+      - file: "content/doctor-profile.md"
+        name: "doctor_profile"
+        label: "Doctor Profile"
+        fields:
+          - { label: "Full Name", name: "name", widget: "string" }
+          - { label: "Credentials", name: "credentials", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Hospital", name: "hospital", widget: "string", required: false }
+          - { label: "Hospital Logo", name: "hospitalLogo", widget: "image", required: false }
+          - { label: "Years of Experience (e.g. \"15+\")", name: "yearsExperience", widget: "string", required: false, hint: "Leave blank until a real figure is confirmed — do not guess." }
+          - { label: "Surgeries Performed (e.g. \"4000+\")", name: "surgeriesCount", widget: "string", required: false, hint: "Leave blank until a real figure is confirmed — do not guess." }
+          - { label: "Patients Treated (e.g. \"1000+\")", name: "patientsTreated", widget: "string", required: false, hint: "Leave blank until a real figure is confirmed — do not guess." }
+          - { label: "Tagline", name: "tagline", widget: "text" }
+          - { label: "Hero Photo", name: "heroImage", widget: "framed_image", aspect: "4:5", required: false, hint: "Choose how the photo is cropped in its frame." }
+          - { label: "Bio", name: "body", widget: "markdown" }
+
+  # ---------- 2. Qualifications ----------
+  - name: "qualifications"
+    label: "Qualifications"
+    folder: "content/qualifications"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Degree", name: "degree", widget: "string" }
+      - { label: "Institution", name: "institution", widget: "string", required: false }
+      - { label: "Institution Logo", name: "logo", widget: "image", required: false, hint: "Optional — shown in the animated 'Trained At' strip instead of the institution name when provided." }
+      - { label: "Display Order", name: "order", widget: "number", hint: "Lower numbers show first" }
+
+  # ---------- 3. Awards & Achievements ----------
+  - name: "awards"
+    label: "Awards & Achievements"
+    folder: "content/awards"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - { label: "Certificate Photo", name: "certificateImage", widget: "framed_image", aspect: "4:3", required: false, hint: "A scan or photo of the actual certificate/award. Drag to choose what is visible in its frame." }
+      - { label: "Display Order", name: "order", widget: "number", hint: "Lower numbers show first" }
+
+  # ---------- 4. Services ----------
+  - name: "services"
+    label: "Services"
+    folder: "content/services"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Short Description (for the card)", name: "shortDescription", widget: "text" }
+      - label: "Icon"
+        name: "icon"
+        widget: "select"
+        options:
+          - { label: "Endourology", value: "endourology" }
+          - { label: "Uro-Oncology", value: "uro-oncology" }
+          - { label: "Andrology", value: "andrology" }
+          - { label: "Reconstructive Urology", value: "reconstructive-urology" }
+          - { label: "Renal Transplant", value: "renal-transplant" }
+          - { label: "Laparoscopy + Robotic Surgery", value: "laparoscopy-robotic" }
+      - { label: "Display Order", name: "order", widget: "number" }
+      - { label: "Hero Image — Detail Banner", name: "heroImage", widget: "framed_image", aspect: "16:9", required: false, hint: "Independent crop used on the service detail banner." }
+      - { label: "Hero Image — Service Card", name: "heroImageCard", widget: "framed_image", aspect: "16:10", required: false, hint: "Select the same original image if desired, then crop it independently for service cards. This does not change the banner crop." }
+      - { label: "Hero Image — Specialty Explorer", name: "heroImageExplorer", widget: "framed_image", aspect: "4:3", required: false, hint: "Select the same original image if desired, then crop it independently for the specialty explorer. This does not change the other crops." }
+      - label: "Hero Image Focus"
+        name: "heroFocus"
+        widget: "select"
+        required: false
+        default: "center"
+        options:
+          - { label: "Center", value: "center" }
+          - { label: "Top", value: "top" }
+          - { label: "Bottom", value: "bottom" }
+          - { label: "Left", value: "left" }
+          - { label: "Right", value: "right" }
+        hint: "The hero image is cropped to fit its banner. Choose which part of the photo must stay in view."
+      - label: "Supporting Images"
+        name: "images"
+        widget: "list"
+        required: false
+        field: { label: "Image", name: "image", widget: "framed_image", aspect: "4:3", also: "21:9" }
+        hint: "Extra photos shown partway down the page."
+      - { label: "Doctor's Explainer Video URL", name: "explainerVideoUrl", widget: "string", required: false, hint: "YouTube, Vimeo, or other external link — the doctor explaining this procedure." }
+      - { label: "Problem & Diagnosis — Heading", name: "problemDiagnosisHeading", widget: "string" }
+      - { label: "Problem & Diagnosis — Body", name: "problemDiagnosisBody", widget: "text" }
+      - { label: "Procedure & Precision — Heading", name: "procedurePrecisionHeading", widget: "string" }
+      - { label: "Procedure & Precision — Body", name: "procedurePrecisionBody", widget: "text" }
+      - { label: "Life & Recovery — Heading", name: "lifeRecoveryHeading", widget: "string" }
+      - { label: "Life & Recovery — Body", name: "lifeRecoveryBody", widget: "text" }
+      - label: "Trifecta Outcomes"
+        name: "trifectaOutcomes"
+        widget: "list"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Promise", name: "promise", widget: "text" }
+          - { label: "Technique", name: "technique", widget: "text" }
+          - label: "Execution Steps"
+            name: "execution"
+            widget: "list"
+            field: { label: "Step", name: "step", widget: "string" }
+          - { label: "The Win", name: "win", widget: "text" }
+      - label: "FAQs"
+        name: "faqs"
+        widget: "list"
+        fields:
+          - { label: "Question", name: "question", widget: "string" }
+          - { label: "Answer", name: "answer", widget: "text" }
+      - { label: "Full Summary (long-form)", name: "body", widget: "markdown" }
+
+  # ---------- 5. Patient Journey ----------
+  - name: "patient_journey"
+    label: "Patient Journey"
+    folder: "content/patient-journey"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Phase Label", name: "phaseLabel", widget: "string", hint: "e.g. Phase 1" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Display Order", name: "order", widget: "number" }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Image", name: "image", widget: "framed_image", aspect: "16:9", also: "4:3", required: false, hint: "Shown as a banner (16:9) and on cards (4:3). Drag to choose what stays visible." }
+      - label: "Key Points"
+        name: "keyPoints"
+        widget: "list"
+        required: false
+        field: { label: "Point", name: "point", widget: "string" }
+        hint: "Shown as an animated numbered step list on the phase page."
+      - label: "FAQs"
+        name: "faqs"
+        widget: "list"
+        fields:
+          - { label: "Question", name: "question", widget: "string" }
+          - { label: "Answer", name: "answer", widget: "text" }
+      - label: "Recovery Milestones"
+        name: "recoveryMilestones"
+        widget: "list"
+        required: false
+        hint: "Only used on the Recovery & Home phase — powers the interactive Recovery Meter."
+        fields:
+          - { label: "Day", name: "day", widget: "string" }
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "Detail", name: "detail", widget: "text" }
+      - label: "Urine Color Guide"
+        name: "urineColorGuide"
+        widget: "list"
+        required: false
+        hint: "Only used on the Recovery & Home phase — powers the interactive color matcher."
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "Color", name: "hex", widget: "color" }
+          - { label: "Guidance", name: "guidance", widget: "text" }
+          - label: "Severity"
+            name: "severity"
+            widget: "select"
+            options: ["normal", "caution", "emergency"]
+      - label: "Symptom Checklist"
+        name: "symptomChecklist"
+        widget: "list"
+        required: false
+        hint: "Only used on the Recovery & Home phase — powers the interactive symptom checker."
+        fields:
+          - { label: "Symptom", name: "symptom", widget: "string" }
+          - label: "Verdict"
+            name: "verdict"
+            widget: "select"
+            options: ["normal", "caution", "emergency"]
+          - { label: "Guidance", name: "guidance", widget: "text" }
+      - { label: "Body Content", name: "body", widget: "markdown" }
+
+  # ---------- 6. Clinic Timings (left empty — doctor fills these in) ----------
+  - name: "clinic_timings"
+    label: "Clinic Timings"
+    folder: "content/clinic-timings"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Hospital / Clinic Name", name: "hospitalName", widget: "string" }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Days", name: "days", widget: "string", hint: "e.g. Monday – Saturday" }
+      - { label: "Hours", name: "hours", widget: "string", hint: "e.g. 10:00 AM – 4:00 PM" }
+      - { label: "Map Link", name: "mapUrl", widget: "string", required: false }
+      - { label: "Note", name: "proTip", widget: "text", required: false }
+
+  # ---------- 7. Surgical Procedures ----------
+  # One entry = one procedure. Each photograph is one chronological stage.
+  # The order of the "Surgical Photographs" list IS the order of the stages
+  # on the website: drag the handle on a stage to move it.
+  - name: "procedures"
+    label: "Surgical Procedures"
+    label_singular: "Surgical Procedure"
+    folder: "content/procedures"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} — {{category}}"
+    media_folder: "/public/uploads/procedures"
+    public_folder: "/uploads/procedures"
+    sortable_fields: ["title", "category", "date"]
+    fields:
+      - { label: "Procedure Title", name: "title", widget: "string" }
+      - label: "Procedure Category"
+        name: "category"
+        widget: "select"
+        options:
+          - "Endourology"
+          - "Uro-Oncology"
+          - "Andrology"
+          - "Reconstructive Urology"
+          - "Renal Transplant"
+          - "Laparoscopy + Robotic Surgery"
+          - "Other"
+      - { label: "Overall Description", name: "description", widget: "text", hint: "One description for the whole procedure, written by the surgeon. Do not include patient names, hospital numbers, or any detail that could identify the patient." }
+      - { label: "Procedure Date", name: "date", widget: "datetime", required: false, format: "YYYY-MM-DD", date_format: "DD MMM YYYY", time_format: false, hint: "Optional." }
+      # Custom widget (public/admin/surgical-steps-widget.js): upload, thumbnails,
+      # drag-to-reorder, replace, delete, titles, an Instagram-style crop/zoom
+      # editor and a sequence preview. It stores the SAME list shape as before
+      # (image + title per stage) plus optional framing; list order = website order.
+      - label: "Surgical Photographs"
+        name: "steps"
+        widget: "surgical_steps"
+        hint: "Upload photographs, give each stage a title, and drag to put them in chronological order. Click a photograph to zoom, reposition or crop how it appears. Originals are never altered. Make sure no patient name, ID band, label or face is visible."
+      - { label: "Show graphic-content warning", name: "contentWarning", widget: "boolean", default: true, hint: "Visitors must click through a warning before the photographs are shown. Recommended." }
+      - { label: "Patient consent confirmed", name: "consentConfirmed", widget: "boolean", default: false, hint: "Tick ONLY when written patient consent to publish these photographs is on file. The procedure will not appear on the website until this is ticked." }
+      - { label: "Draft (hidden from the website)", name: "draft", widget: "boolean", default: true, hint: "Leave ticked while you are still working. Untick, then save, to publish." }
+
+  # ---------- 8. Gallery (left empty — doctor uploads photos) ----------
+  - name: "gallery"
+    label: "Gallery"
+    folder: "content/gallery"
+    create: true
+    slug: "photo-{{year}}{{month}}{{day}}-{{hour}}{{minute}}{{second}}"
+    fields:
+      - { label: "Image", name: "image", widget: "framed_image", aspect: "4:3", also: "3:4", hint: "Shown in the gallery (4:3) and the homepage carousel (3:4). Drag to choose what stays visible in both." }
+      - { label: "Caption", name: "caption", widget: "string", required: false }
+
+  # ---------- 9. Videos (left empty — doctor adds videos) ----------
+  - name: "videos"
+    label: "Videos"
+    folder: "content/videos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Video URL", name: "url", widget: "string", hint: "YouTube, Vimeo, or other external link" }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+
+  # ---------- 10. Research Papers ----------
+  - name: "research"
+    label: "Research Papers"
+    label_singular: "Research Paper"
+    folder: "content/research"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    sortable_fields: ["title", "date"]
+    fields:
+      - { label: "Title", name: "title", widget: "string", hint: "The paper's title only. Put the author names in the Authors list below." }
+      - label: "Authors"
+        name: "authors"
+        widget: "list"
+        required: false
+        label_singular: "Author"
+        field: { label: "Author", name: "author", widget: "string" }
+        hint: "One author per entry, in publication order, e.g. Masood PF. Drag to reorder."
+      - { label: "Journal / Publication", name: "journal", widget: "string", required: false }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "DOI", name: "doi", widget: "string", required: false, hint: "Optional. Enter it as 10.xxxx/xxxxx — no need to add https://doi.org/." }
+      - { label: "Abstract", name: "abstract", widget: "text" }
+      - { label: "PDF File", name: "pdfFile", widget: "file", required: false, hint: "Upload the paper as a PDF. Only add it if you have the right to share it publicly." }
+      - { label: "Publication URL", name: "externalLink", widget: "string", required: false, hint: "Alternative or addition to a PDF — a link to the paper on the journal's website." }
+      - { label: "Draft (hidden from the website)", name: "draft", widget: "boolean", default: false, required: false, hint: "Tick to save without publishing." }
