@@ -1,24 +1,33 @@
 ---
-phaseLabel: "Phase 3"
-title: "Precision Surgery"
+phaseLabel: Phase 3
+title: Precision Surgery
 order: 3
-image: "https://picsum.photos/seed/precision-surgery/1600/1000"
-summary: "What happens during the procedure itself — the technique, the focus on precision, and the immediate post-operative period."
-faqs:
-  - question: "How long does the surgery take?"
-    answer: "Duration varies significantly by procedure type and individual case complexity, and is discussed with you beforehand as part of surgical planning."
-  - question: "Will I be under general anesthesia?"
-    answer: "The anesthesia approach depends on the specific procedure and is planned together with the anesthesia team during your pre-surgery consultation."
-  - question: "What happens right after surgery?"
-    answer: "You'll be closely monitored in a recovery area as the anesthesia wears off, before being moved to your hospital room once you're stable."
-  - question: "Will my family be updated during the procedure?"
-    answer: "Hospital communication policies vary — it's worth confirming with the care team beforehand how and when your family will be updated."
+summary: What happens during the procedure itself — the technique, the focus on
+  precision, and the immediate post-operative period.
+image: /uploads/images-2-.jpg#f=1,50,0
 keyPoints:
-  - "Precise, deliberate technique — often minimally invasive or robotic-assisted where appropriate"
-  - "Continuous monitoring throughout, with a structured approach to managing any complications"
-  - "Function preservation prioritized wherever it's safe to do so, alongside treating the underlying problem"
-  - "Close recovery-area monitoring immediately afterward as anesthesia wears off"
-  - "Transfer to your hospital room once stable, beginning the recovery phase"
+  - Precise, deliberate technique — often minimally invasive or robotic-assisted
+    where appropriate
+  - Continuous monitoring throughout, with a structured approach to managing any
+    complications
+  - Function preservation prioritized wherever it's safe to do so, alongside
+    treating the underlying problem
+  - Close recovery-area monitoring immediately afterward as anesthesia wears off
+  - Transfer to your hospital room once stable, beginning the recovery phase
+faqs:
+  - question: How long does the surgery take?
+    answer: Duration varies significantly by procedure type and individual case
+      complexity, and is discussed with you beforehand as part of surgical
+      planning.
+  - question: Will I be under general anesthesia?
+    answer: The anesthesia approach depends on the specific procedure and is planned
+      together with the anesthesia team during your pre-surgery consultation.
+  - question: What happens right after surgery?
+    answer: You'll be closely monitored in a recovery area as the anesthesia wears
+      off, before being moved to your hospital room once you're stable.
+  - question: Will my family be updated during the procedure?
+    answer: Hospital communication policies vary — it's worth confirming with the
+      care team beforehand how and when your family will be updated.
 ---
 
 Every procedure is approached with the same underlying focus: technical precision, minimizing trauma wherever possible, and protecting healthy function alongside treating the underlying problem. The key points below summarize the focus during surgery; more detail on what happens follows.
