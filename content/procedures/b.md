@@ -14,22 +14,46 @@ steps:
     title: Ureter, Psoas
     width: 1600
     height: 1207
-  - image: /uploads/procedures/869529474_122304173330175306_1705024430918987424_n.jpg
-    title: Renal Vein
-    width: 742
-    height: 424
   - image: /uploads/procedures/870223003_122304173150175306_3639271869543779670_n.jpg
-    title: Renal Artery
+    title: Renal Artery, Vein
     width: 768
     height: 456
   - image: /uploads/procedures/877029405_122304173246175306_3899190170156809176_n.jpg
     title: Renal Artery cliped
     width: 762
     height: 434
-  - image: /uploads/procedures/877822496_122304173432175306_9014680628700141158_n.jpg
-    title: Renal Vein clipped
+  - image: /uploads/procedures/4.jfif
+    title: Renal Vein
+    width: 742
+    height: 424
+  - image: /uploads/procedures/5.jfif
+    title: Renal vein clipped
     width: 710
     height: 434
+  - image: /uploads/procedures/6.jfif
+    title: Cystic duct
+    width: 650
+    height: 424
+  - image: /uploads/procedures/7.jfif
+    title: Cystic duct clipping
+    width: 650
+    height: 418
+  - image: /uploads/procedures/8.jfif
+    title: Lifting of GB from liver bed
+    width: 650
+    height: 410
+  - image: /uploads/procedures/9.jfif
+    title: Removed specimen
+    width: 1180
+    height: 1600
+  - image: /uploads/procedures/10.jfif
+    title: Cut section of kidney containing pus
+    width: 1200
+    height: 1600
+  - image: /uploads/procedures/11.jfif
+    title: Cut section of GB and kidney
+    width: 1200
+    height: 1600
 contentWarning: false
 consentConfirmed: true
 draft: false
