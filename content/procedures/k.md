@@ -30,9 +30,17 @@ steps:
     width: 1475
     height: 1080
   - image: /uploads/procedures/853719653_122302498136175306_7632688099279598438_n.jpg
-    title: Renal mass specimen(Partial nephrectomy)
+    title: Partial nephrectomy specimen
     width: 1378
     height: 1294
+  - image: /uploads/procedures/6.jfif
+    title: Partial nephrectomy specimen
+    width: 1227
+    height: 1471
+  - image: /uploads/procedures/7.jfif
+    title: Surgeon
+    width: 960
+    height: 688
 contentWarning: false
 consentConfirmed: true
 draft: false
