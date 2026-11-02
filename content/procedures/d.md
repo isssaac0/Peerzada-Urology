@@ -32,6 +32,22 @@ steps:
     title: Cremasteric veins II
     width: 1200
     height: 968
+  - image: /uploads/procedures/4.jfif
+    title: Varicose veins
+    width: 1600
+    height: 1332
+  - image: /uploads/procedures/5.jfif
+    title: Vas, lymphatic preservation
+    width: 1202
+    height: 1444
+  - image: /uploads/procedures/6.jfif
+    title: Completion of the procedure
+    width: 1207
+    height: 1512
+  - image: /uploads/procedures/7.jfif
+    title: Incision site closure
+    width: 1054
+    height: 756
 contentWarning: false
 consentConfirmed: true
 draft: false
