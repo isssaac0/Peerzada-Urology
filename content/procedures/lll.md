@@ -23,22 +23,34 @@ steps:
     title: Section
     width: 975
     height: 1600
-  - image: /uploads/procedures/853230551_122302501028175306_5451461203007273674_n.jpg
-    title: Crossing Vessel
-    width: 1180
-    height: 624
-  - image: /uploads/procedures/853627881_122302500944175306_429368194944958928_n.jpg
-    title: Space being created under crossing vessel to free puj area
-    width: 992
-    height: 590
   - image: /uploads/procedures/854043233_122302500860175306_4840584680933060559_n.jpg
     title: Crossing vessel along with pelvis and ureter
     width: 1234
     height: 706
+  - image: /uploads/procedures/853627881_122302500944175306_429368194944958928_n.jpg
+    title: Space being created under crossing vessel to free puj area
+    width: 992
+    height: 590
+  - image: /uploads/procedures/853230551_122302501028175306_5451461203007273674_n.jpg
+    title: Crossing Vessel
+    width: 1180
+    height: 624
   - image: /uploads/procedures/854414197_122302501112175306_8828963706852463729_n.jpg
     title: Dismembering the pelvis
     width: 1048
     height: 688
+  - image: /uploads/procedures/5.jfif
+    title: Dismembering of pelvis
+    width: 1152
+    height: 648
+  - image: /uploads/procedures/6.jfif
+    title: Cut end of ureter
+    width: 1280
+    height: 854
+  - image: /uploads/procedures/7.jfif
+    title: Spatulation
+    width: 1600
+    height: 937
 contentWarning: false
 consentConfirmed: true
 draft: false
