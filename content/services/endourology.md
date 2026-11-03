@@ -4,7 +4,7 @@ shortDescription: Scope-based, minimally invasive treatment for kidney and
   ureteric stones — no external incisions.
 icon: endourology
 order: 1
-heroImage: /uploads/screenshot-2026-09-05-195341.png
+heroImage: /uploads/74514f_dec207eb6fe9476eb3029b66499854dc~mv2.avif#f=1,50,100
 images:
   - https://picsum.photos/seed/endourology-1/800/600
   - https://picsum.photos/seed/endourology-2/800/600
