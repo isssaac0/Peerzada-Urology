@@ -4,7 +4,7 @@ shortDescription: Diagnosis and treatment of male reproductive and urological
   health concerns, handled with discretion and care.
 icon: andrology
 order: 3
-heroImage: /uploads/screenshot-2026-09-05-195327.png
+heroImage: /uploads/advanced-microscopic-andrology.webp#f=1,50,18.3
 images:
   - https://picsum.photos/seed/andrology-1/800/600
   - https://picsum.photos/seed/andrology-2/800/600
