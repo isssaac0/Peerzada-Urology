@@ -219,7 +219,7 @@ collections:
     create: true
     slug: "{{slug}}"
     summary: "{{title}} — {{category}}"
-    media_folder: "/public/uploads/procedures"
+    media_folder: "public/uploads/procedures"
     public_folder: "/uploads/procedures"
     sortable_fields: ["title", "category", "date"]
     fields:
