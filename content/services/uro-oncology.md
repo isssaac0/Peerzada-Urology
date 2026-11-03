@@ -4,7 +4,7 @@ shortDescription: Comprehensive, precision-focused surgical care for cancers of
   the kidney, bladder, prostate, and urinary tract.
 icon: uro-oncology
 order: 2
-heroImage: /uploads/urooncology.png
+heroImage: /uploads/laproscopic-urology.png#f=1,92.2,50
 images:
   - https://picsum.photos/seed/uro-oncology-1/800/600
   - https://picsum.photos/seed/uro-oncology-2/800/600
