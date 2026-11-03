@@ -50,10 +50,12 @@ steps:
     title: Cut section of kidney containing pus
     width: 1200
     height: 1600
+    ratio: 4x5
   - image: /uploads/procedures/11.jfif
     title: Cut section of GB and kidney
     width: 1200
     height: 1600
+    ratio: 1x1
 contentWarning: false
 consentConfirmed: true
 draft: false
