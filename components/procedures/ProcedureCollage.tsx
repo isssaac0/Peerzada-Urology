@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/SafeImage";
 import type { SurgicalStep } from "@/types/content";
 
 // The procedure's cover: a collage of its stage photographs (first stage

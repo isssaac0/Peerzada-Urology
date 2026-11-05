@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/SafeImage";
 import type { VideoItem } from "@/types/content";
 import { Reveal, RevealStagger, StaggerItem } from "@/components/ui/Reveal";
 import { SectionEyebrow } from "@/components/ui/Section";

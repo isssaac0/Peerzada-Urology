@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/SafeImage";
 import { Section, SectionEyebrow } from "@/components/ui/Section";
 import { Reveal, RevealStagger, StaggerItem } from "@/components/ui/Reveal";
 

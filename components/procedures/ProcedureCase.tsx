@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import Image from "@/components/ui/SafeImage";
 import Link from "next/link";
 import { PhotoStage } from "@/components/ui/PhotoStage";
 import type { SurgicalStep } from "@/types/content";

@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 const UPLOADS_DIR = path.join(process.cwd(), "public", "uploads");
-const IMAGE_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"]);
+const IMAGE_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif", ".jfif", ".jfi", ".jpe", ".pjpeg", ".pjp", ".bmp", ".svg", ".ico"]);
 
 function collectImages(dir: string): Array<{ name: string; path: string }> {
   if (!fs.existsSync(dir)) return [];

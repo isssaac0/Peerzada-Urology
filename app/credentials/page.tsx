@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/SafeImage";
 import { getDoctorProfile, getQualifications } from "@/lib/content";
 import { Section } from "@/components/ui/Section";
 import { Reveal, RevealStagger, StaggerItem } from "@/components/ui/Reveal";

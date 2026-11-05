@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type CSSProperties } from "react";
-import Image from "next/image";
+import Image from "@/components/ui/SafeImage";
 import { frameLayout } from "@/lib/framing";
 import type { SurgicalStep } from "@/types/content";
 

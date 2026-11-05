@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/SafeImage";
 import type { ImageFocus } from "@/types/content";
 import { parseFramedSrc } from "@/lib/imageFraming";
 

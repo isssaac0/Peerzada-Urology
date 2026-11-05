@@ -364,6 +364,63 @@
     });
   }
 
+  // ---- Any image format -------------------------------------------------
+  // Editors may upload .jfif / .jfi / .pjpeg (JPEG under another name), .bmp,
+  // .tif, .heic ... Browsers and the live site only reliably handle a few, so
+  // anything unusual is made web-safe BEFORE it is saved:
+  //   * JPEG-family names (.jfif etc.) are simply renamed to .jpg — same bytes,
+  //     nothing re-encoded, no quality loss.
+  //   * Other formats the browser can open are converted once to JPEG/PNG.
+  //   * Formats this browser cannot open get a clear message.
+  var WEB_SAFE = /\.(jpe?g|png|webp|avif|gif|svg)$/i;
+  var JPEG_FAMILY = /\.(jfif|jfi|jpe|pjpeg|pjp)$/i;
+  var ANY_IMAGE_EXT = /\.(jpe?g|jfif|jfi|jpe|pjpeg|pjp|png|webp|avif|gif|svg|bmp|dib|tiff?|heic|heif|ico)$/i;
+  var FILE_ACCEPT = "image/*,.jfif,.jfi,.jpe,.pjpeg,.pjp,.avif,.bmp,.dib,.tif,.tiff,.heic,.heif,.ico";
+
+  function isImageFile(f) {
+    return /^image\//.test(f.type) || ANY_IMAGE_EXT.test(f.name);
+  }
+
+  function normalizeFile(file) {
+    var name = file.name || "image";
+    if (WEB_SAFE.test(name)) return Promise.resolve(file);
+    if (JPEG_FAMILY.test(name)) {
+      return Promise.resolve(new File([file], name.replace(JPEG_FAMILY, ".jpg"), { type: "image/jpeg", lastModified: file.lastModified }));
+    }
+    return new Promise(function (resolve, reject) {
+      var url = URL.createObjectURL(file);
+      var im = new Image();
+      im.onload = function () {
+        try {
+          var w = im.naturalWidth, h = im.naturalHeight;
+          var max = 5000;
+          var k = Math.min(1, max / Math.max(w, h));
+          var c = document.createElement("canvas");
+          c.width = Math.max(1, Math.round(w * k));
+          c.height = Math.max(1, Math.round(h * k));
+          var ctx = c.getContext("2d");
+          var asPng = /\.(ico|png)$/i.test(name);
+          if (!asPng) { ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, c.width, c.height); }
+          ctx.drawImage(im, 0, 0, c.width, c.height);
+          c.toBlob(function (blob) {
+            URL.revokeObjectURL(url);
+            if (!blob) { reject(new Error('"' + name + '" could not be converted. Please save it as a JPG or PNG and try again.')); return; }
+            var base = name.replace(/\.[^.]*$/, "") || "image";
+            resolve(new File([blob], base + (asPng ? ".png" : ".jpg"), { type: asPng ? "image/png" : "image/jpeg" }));
+          }, asPng ? "image/png" : "image/jpeg", 0.92);
+        } catch (e) {
+          URL.revokeObjectURL(url);
+          reject(new Error('"' + name + '" could not be converted. Please save it as a JPG or PNG and try again.'));
+        }
+      };
+      im.onerror = function () {
+        URL.revokeObjectURL(url);
+        reject(new Error('This browser cannot open "' + name + '". Please save/export it as a JPG or PNG and upload that.'));
+      };
+      im.src = url;
+    });
+  }
+
   function readFile(file) {
     return new Promise(function (resolve, reject) {
       var url = URL.createObjectURL(file);
@@ -373,7 +430,7 @@
       };
       im.onerror = function () {
         URL.revokeObjectURL(url);
-        reject(new Error('"' + file.name + '" could not be read as an image (use JPG, PNG or WebP).'));
+        reject(new Error('"' + file.name + '" could not be read as an image. Please try a JPG or PNG.'));
       };
       im.src = url;
     });
@@ -708,8 +765,8 @@
     this.dragFrom = null;
     this.root = E("div", { class: "ss" });
     host.appendChild(this.root);
-    this.fileInput = E("input", { type: "file", accept: "image/jpeg,image/png,image/webp,image/*", multiple: "multiple", style: { display: "none" } });
-    this.replaceInput = E("input", { type: "file", accept: "image/*", style: { display: "none" } });
+    this.fileInput = E("input", { type: "file", accept: FILE_ACCEPT, multiple: "multiple", style: { display: "none" } });
+    this.replaceInput = E("input", { type: "file", accept: FILE_ACCEPT, style: { display: "none" } });
     host.appendChild(this.fileInput);
     host.appendChild(this.replaceInput);
     var self = this;
@@ -818,11 +875,9 @@
 
   App.prototype.addFiles = function (files) {
     var self = this;
-    files = files.filter(function (f) {
-      return /^image\//.test(f.type) || /\.(jpe?g|png|webp)$/i.test(f.name);
-    });
+    files = files.filter(isImageFile);
     if (!files.length) {
-      this.setMessage("error", "Please choose image files (JPG, PNG or WebP).");
+      this.setMessage("error", "Please choose image files (any common format works, e.g. JPG, JFIF, PNG, WebP).");
       return Promise.resolve();
     }
     var errors = [];
@@ -831,7 +886,8 @@
     files.forEach(function (file, n) {
       chain = chain.then(function () {
         self.setMessage("status", "Uploading photograph " + (n + 1) + " of " + files.length + "…");
-        return readFile(file)
+        return normalizeFile(file)
+          .then(function (nf) { file = nf; return readFile(nf); })
           .then(function (info) {
             return self.persist(file).then(function (path) {
               previewCache[path] = info.url;
@@ -862,7 +918,8 @@
       input.value = "";
       if (!file) return;
       self.setMessage("status", "Replacing photograph " + (index + 1) + "…");
-      readFile(file)
+      normalizeFile(file)
+        .then(function (nf) { file = nf; return readFile(nf); })
         .then(function (info) {
           return self.persist(file).then(function (path) {
             previewCache[path] = info.url;
@@ -1192,7 +1249,7 @@
     this.root = E("div", { class: "fi" });
     host.appendChild(this.root);
     var self = this;
-    this.input = E("input", { type: "file", accept: "image/*", style: { display: "none" } });
+    this.input = E("input", { type: "file", accept: FILE_ACCEPT, style: { display: "none" } });
     host.appendChild(this.input);
     this.input.addEventListener("change", function () {
       var f = self.input.files && self.input.files[0];
@@ -1235,7 +1292,8 @@
     var self = this;
     var p = this.getProps();
     this.setMsg("status", "Uploading…");
-    readFile(file)
+    normalizeFile(file)
+      .then(function (nf) { file = nf; return readFile(nf); })
       .then(function (info) {
         return Promise.resolve(p.onPersistMedia(file, { field: p.field })).then(function (action) {
           if (!action) throw new Error("Upload cancelled.");

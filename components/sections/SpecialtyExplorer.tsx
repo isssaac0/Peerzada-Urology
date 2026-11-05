@@ -17,17 +17,17 @@ export function SpecialtyExplorer({ services }: { services: Service[] }) {
   if (!active) return null;
 
   return (
-    <Section tone="navy-light" id="specialty-explorer">
+    <Section tone="navy-light" id="specialty-explorer" className="max-sm:py-6">
       <Reveal>
         <SectionEyebrow>Solutions Offered</SectionEyebrow>
-        <h2 className="max-w-2xl text-3xl font-bold text-ink sm:text-4xl">
+        <h2 className="max-w-2xl text-3xl font-bold text-ink max-sm:text-xl sm:text-4xl">
           Get Specialized Urological Care
         </h2>
       </Reveal>
 
       <Reveal
         delay={0.1}
-        className="mt-8 grid grid-cols-3 gap-3 sm:grid-cols-6"
+        className="mt-8 grid grid-cols-3 gap-3 max-sm:mt-3 max-sm:gap-1.5 sm:grid-cols-6"
       >
         {services.map((service, index) => {
           const isActive = index === activeIndex;
@@ -37,7 +37,7 @@ export function SpecialtyExplorer({ services }: { services: Service[] }) {
               type="button"
               onClick={() => setActiveIndex(index)}
               aria-pressed={isActive}
-              className={`flex flex-col items-center gap-2 rounded-card border p-4 text-center transition-colors ${
+              className={`flex flex-col items-center gap-2 rounded-card border p-4 text-center transition-colors max-sm:gap-1 max-sm:p-2 ${
                 isActive
                   ? "border-accent bg-accent/10"
                   : "border-ink-muted/15 bg-navy hover:border-accent/50"
@@ -45,10 +45,10 @@ export function SpecialtyExplorer({ services }: { services: Service[] }) {
             >
               <ServiceIcon
                 icon={service.icon}
-                className={`h-7 w-7 ${isActive ? "text-accent" : "text-ink-muted"}`}
+                className={`h-7 w-7 max-sm:h-5 max-sm:w-5 ${isActive ? "text-accent" : "text-ink-muted"}`}
               />
               <span
-                className={`text-xs font-semibold sm:text-sm ${
+                className={`text-xs font-semibold max-sm:text-[10px] max-sm:leading-tight sm:text-sm ${
                   isActive ? "text-ink" : "text-ink-muted"
                 }`}
               >
@@ -59,7 +59,7 @@ export function SpecialtyExplorer({ services }: { services: Service[] }) {
         })}
       </Reveal>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-2">
+      <div className="mt-8 grid gap-6 max-sm:mt-3 max-sm:gap-2 lg:grid-cols-2">
         <AnimatePresence mode="wait">
           <motion.div
             key={`${active.slug}-panel`}
@@ -67,24 +67,24 @@ export function SpecialtyExplorer({ services }: { services: Service[] }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="rounded-card border border-ink-muted/15 bg-navy p-8"
+            className="order-2 rounded-card border border-ink-muted/15 bg-navy p-8 max-sm:p-3 lg:order-1"
           >
             {highlight ? (
               <>
-                <h3 className="text-2xl font-bold text-ink">
+                <h3 className="text-2xl font-bold text-ink max-sm:text-base">
                   {highlight.title}
                 </h3>
-                <p className="mt-3 text-ink-muted">{highlight.promise}</p>
-                <ul className="mt-6 space-y-3">
+                <p className="mt-3 text-ink-muted max-sm:mt-1 max-sm:text-[13px] max-sm:leading-snug">{highlight.promise}</p>
+                <ul className="mt-6 space-y-3 max-sm:mt-2 max-sm:space-y-1">
                   {highlight.execution.map((point) => (
-                    <li key={point} className="flex items-start gap-3">
+                    <li key={point} className="flex items-start gap-3 max-sm:gap-2">
                       <span
-                        className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/20 text-xs text-accent"
+                        className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/20 text-xs text-accent max-sm:h-4 max-sm:w-4 max-sm:text-[10px]"
                         aria-hidden="true"
                       >
                         ✓
                       </span>
-                      <span className="text-ink-muted">{point}</span>
+                      <span className="text-ink-muted max-sm:text-[12.5px] max-sm:leading-snug">{point}</span>
                     </li>
                   ))}
                 </ul>
@@ -94,7 +94,7 @@ export function SpecialtyExplorer({ services }: { services: Service[] }) {
             )}
             <Link
               href={`/services/${active.slug}`}
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-dark"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-dark max-sm:mt-3 max-sm:px-4 max-sm:py-2 max-sm:text-xs"
             >
               Explore {active.title} Care →
             </Link>
@@ -108,7 +108,7 @@ export function SpecialtyExplorer({ services }: { services: Service[] }) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.97 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="relative min-h-[280px] overflow-hidden rounded-card"
+            className="relative order-1 min-h-[280px] overflow-hidden rounded-card max-sm:min-h-[130px] lg:order-2"
           >
             {active.heroImage ? (
               <FitImage src={active.heroImageExplorer || active.heroImage} alt={active.title} focus={active.heroFocus} />
@@ -118,7 +118,7 @@ export function SpecialtyExplorer({ services }: { services: Service[] }) {
               </div>
             )}
             {highlight ? (
-              <div className="absolute inset-x-0 top-0 bg-navy-deep/80 px-4 py-2 text-center text-xs font-semibold uppercase tracking-wider text-ink backdrop-blur">
+              <div className="absolute inset-x-0 top-0 bg-navy-deep/80 px-4 py-2 text-center text-xs font-semibold uppercase tracking-wider text-ink backdrop-blur max-sm:py-1 max-sm:text-[10px]">
                 {highlight.title}
               </div>
             ) : null}

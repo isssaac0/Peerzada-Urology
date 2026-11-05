@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/SafeImage";
 import type { Qualification } from "@/types/content";
 
 type StripItem = { name: string; logo: string };

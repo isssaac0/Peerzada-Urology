@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/ui/SafeImage";
 import type { VideoItem } from "@/types/content";
 import { Section, SectionEyebrow } from "@/components/ui/Section";
 import { Reveal, RevealStagger, StaggerItem } from "@/components/ui/Reveal";
